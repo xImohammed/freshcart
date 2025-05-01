@@ -21,7 +21,7 @@ export const appConfig: ApplicationConfig = {
     },
     {
       provide:redirect_Url,
-      useValue:'freshcart-git-main-ximohammeds-projects.vercel.app'
+      useValue:'https://freshcart-git-main-ximohammeds-projects.vercel.app'
     },
     provideToastr()
     ,importProvidersFrom(NgxSpinnerModule)
