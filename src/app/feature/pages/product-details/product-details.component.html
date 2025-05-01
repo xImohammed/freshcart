@@ -1,0 +1,66 @@
+<div class="max-w-7xl mx-auto ">
+  <div class="backdrop-blur-md bg-black/70 text-white rounded-xl p-6 shadow-lg">
+    
+    <div  class="grid grid-cols-1 lg:grid-cols-2 gap-8 min-h-screen lg:items-center">
+      <!-- 🖼️ Product Images -->
+      <div>
+        <img [src]="currentMainImage" 
+             alt="Main Product"
+             class="w-full rounded-xl shadow mb-4">
+        
+        <div class="flex gap-2 overflow-x-auto">
+          <img [src]="productData.imageCover"
+               class="w-20 h-20 object-cover rounded border hover:border-yellow-400 transition cursor-pointer"
+               (click)="changeMainImage(productData.imageCover)" />
+          
+          @for (item of productData.images || []; track $index) {
+            <img [src]="item"
+                 class="w-20 h-20 object-cover rounded border hover:border-yellow-400 transition cursor-pointer"
+                 (click)="changeMainImage(item)" />
+          }
+        </div>
+      </div>
+      
+      <!-- 📝 Product Info -->
+      <div class="space-y-4">
+        <h1 class="text-2xl font-bold text-gray-200">
+          {{productData.title}}
+        </h1>
+        
+        <p class="text-sm text-gray-300">
+          {{productData.description}}
+        </p>
+        
+        <div class="flex items-center gap-2 text-yellow-500 text-lg">
+          ★ {{productData.ratingsAverage || 0}} 
+          <span class="text-sm text-gray-400">({{productData.ratingsQuantity || 0}} ratings)</span>
+        </div>
+        
+        <div class="text-3xl font-bold text-green-400">
+          EGP {{productData.priceAfterDiscount || productData.price}}
+          <span *ngIf="productData.priceAfterDiscount && productData.price" 
+                class="text-lg text-gray-500 line-through ml-2">
+            EGP {{productData.price}}
+          </span>
+        </div>
+        
+        <p class="text-sm text-gray-400">
+          Brand: <span class="font-medium text-gray-200">{{productData.brand?.name || 'N/A'}}</span>
+        </p>
+        
+        <p class="text-sm text-gray-400">
+          Category: <span class="font-medium text-gray-200">{{productData.category?.name || 'N/A'}}</span>
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 mt-6">
+          <button (click)="addToCart(productData._id)" class="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2 rounded font-semibold shadow">
+            Add to Cart
+          </button>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

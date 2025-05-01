@@ -1,0 +1,138 @@
+@if (step === 1) {
+  <section class="bg-black/70 backdrop-blur-md grid place-items-center rounded-xl my-10 mx-20 py-20">
+    @if (showAlert) {
+      @if (errorMessage?.length) {
+        <div role="alert" class="bg-pink-100 text-pink-800 border border-pink-300 px-4 py-3 rounded-lg flex items-center gap-2 shadow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span class="text-sm">{{errorMessage}}</span>
+        </div>
+      }
+    }
+    <h1 class="font-bold text-center text-3xl py-5 my-10">Forget Password</h1>
+    <form [formGroup]="forgetPasswordForm" (ngSubmit)="forgetPassSubmitt()" class="w-[90%]" action="">
+      <input type="email" formControlName="email" placeholder="Email" class="input  p-2 my-3 input-bordered w-full bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-green-400 rounded-lg"/>
+      
+      @let email = forgetPasswordForm.get('email');
+      @if (email?.errors && email?.touched) {
+        @if (email?.getError('required')) {
+          <div role="alert" class="bg-pink-100 text-pink-800 border border-pink-300 px-4 py-3 rounded-lg flex items-center gap-2 shadow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-sm">Email is Required</span>
+          </div>
+        }
+        @if (email?.getError('email')) {
+          <div role="alert" class="bg-pink-100 text-pink-800 border border-pink-300 px-4 py-3 rounded-lg flex items-center gap-2 shadow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-sm">Please enter a valid email address</span>
+          </div>
+        }
+      }
+
+      <button type="submit" [disabled]="isLoading" class="btn btn-active text-white w-[12rem] block mx-auto my-5 btn-success">
+        @if (isLoading) {
+          <span class="loading loading-infinity loading-xl text-white"></span>
+        }
+        Submit
+      </button>
+    </form>
+  </section>
+}
+
+@if (step === 2) {
+  <section class="bg-black/70 backdrop-blur-md grid place-items-center rounded-xl my-10 mx-20 py-20">
+    @if (showAlert) {
+      @if (errorMessage?.length) {
+        <div role="alert" class="bg-pink-100 text-pink-800 border border-pink-300 px-4 py-3 rounded-lg flex items-center gap-2 shadow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span class="text-sm">{{errorMessage}}</span>
+        </div>
+      }
+    }
+    <h1 class="font-bold text-center text-3xl py-5 my-10">Verify Code</h1>
+    <form [formGroup]="verifyCodeForm" (ngSubmit)="verifyCodeSubmitt()" class="w-[90%]" action="">
+      <input type="tel" formControlName="resetCode" placeholder="Enter Code" class="input  p-2 my-3 input-bordered w-full bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-green-400 rounded-lg"/>
+
+      @let code = verifyCodeForm.get('resetCode');
+      @if (code?.errors && code?.touched) {
+        @if (code?.getError('required')) {
+          <div role="alert" class="bg-pink-100 text-pink-800 border border-pink-300 px-4 py-3 rounded-lg flex items-center gap-2 shadow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-sm">Code is Required</span>
+          </div>
+        }
+        @if (code?.getError('pattern')) {
+          <div role="alert" class="bg-pink-100 text-pink-800 border border-pink-300 px-4 py-3 rounded-lg flex items-center gap-2 shadow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-sm">Verification code must be exactly 6 digits</span>
+          </div>
+        }
+      }
+
+      <button type="submit" [disabled]="isLoading" class="btn text-white btn-active w-[12rem] block mx-auto my-5 btn-success">
+        @if (isLoading) {
+          <span class="loading loading-infinity loading-xl text-white"></span>
+        }
+        Submit
+      </button>
+    </form>
+  </section>
+}
+
+@if (step === 3) {
+  <section class="bg-black/70 backdrop-blur-md grid place-items-center rounded-xl my-10 mx-20 py-20">
+    @if (showAlert) {
+      @if (errorMessage?.length) {
+        <div role="alert" class="bg-pink-100 text-pink-800 border border-pink-300 px-4 py-3 rounded-lg flex items-center gap-2 shadow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span class="text-sm">{{errorMessage}}</span>
+        </div>
+      }
+    }
+    <h1 class="font-bold text-center text-3xl py-5 my-10">Reset New Password</h1>
+    <form [formGroup]="resetPaswordForm" (ngSubmit)="resetPasswordSubmitt()" class="w-[90%]" action="">
+      <input type="email" readonly formControlName="email" placeholder="Email" class="input  p-2 my-3 input-bordered w-full bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-green-400 rounded-lg"/>
+      <input type="password" formControlName="newPassword" placeholder="New Password" class="input my-3   p-2 input-bordered w-full bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-green-400 rounded-lg"/>
+      
+      @let password = resetPaswordForm.get('newPassword');
+      @if (password?.errors && password?.touched) {
+        @if (password?.getError('required')) {
+          <div role="alert" class="bg-pink-100 text-pink-800 border border-pink-300 px-4 py-3 rounded-lg flex items-center gap-2 shadow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-sm">Password is required</span>
+          </div>
+        }
+        @if (password?.getError('pattern')) {
+          <div role="alert" class="bg-pink-100 text-pink-800 border border-pink-300 px-4 py-3 rounded-lg flex items-center gap-2 shadow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-sm">Password must be at least 8 characters and include uppercase, lowercase, number, and special character</span>
+          </div>
+        }
+      }
+
+      <button type="submit" [disabled]="isLoading" class="btn text-white btn-active w-[12rem] block mx-auto my-5 btn-success">
+        @if (isLoading) {
+          <span class="loading loading-infinity loading-xl text-white"></span>
+        }
+        Sign In
+      </button>
+    </form>
+  </section>
+}

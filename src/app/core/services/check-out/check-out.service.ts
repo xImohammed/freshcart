@@ -1,0 +1,17 @@
+import { base_Url } from '../../custom_injection/api_BaseUrl';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CheckOutService {
+
+  constructor(private readonly _http:HttpClient , @Inject(base_Url) private apiBaseUrl:string) { }
+  checkOut(cartId:string,data:object)
+  {
+    return this._http.post(this.apiBaseUrl + `orders/checkout-session/${cartId}?url=http://localhost:4200`,{
+      shippingAdress:data
+    })
+  }
+}

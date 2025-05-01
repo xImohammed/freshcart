@@ -1,0 +1,54 @@
+<section class="bg-black/70 backdrop-blur-md rounded-xl mx-5 md:mx-20 my-[10rem] py-10 px-6 md:px-20 shadow-lg transition-all duration-300">
+  <h1 class="text-white font-bold text-center text-3xl">Shipping Details</h1>
+
+  <form [formGroup]="shippingForm" (ngSubmit)="onSubmit()" class="flex flex-col w-full md:w-[80%] mx-auto gap-5 my-10">
+
+
+
+    <!-- Phone Input -->
+    <input type="text" formControlName="phone" placeholder="Phone Number"
+      class="input input-bordered w-full bg-white/20 text-white p-2 placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-green-400 rounded-lg" />
+
+    @let phone = shippingForm.get('phone');
+    @if (phone?.errors && phone?.touched) {
+      @if (phone?.getError('required')) {
+        <div class="text-sm text-pink-400">Phone number is required</div>
+      }
+      @if (phone?.getError('pattern')) {
+        <div class="text-sm text-pink-400">Please enter a valid Egyptian phone number</div>
+      }
+    }
+
+    <!-- City Input -->
+    <input type="text" formControlName="city" placeholder="City"
+      class="input input-bordered w-full bg-white/20 p-2 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-green-400 rounded-lg" />
+
+    @let city = shippingForm.get('city');
+    @if (city?.errors && city?.touched) {
+      @if (city?.getError('required')) {
+        <div class="text-sm text-pink-400">City is required</div>
+      }
+    }
+
+        <!-- Details Input -->
+<!-- Details Textarea -->
+<textarea formControlName="details" placeholder="Address Details"
+  rows="4"
+  class="textarea textarea-bordered w-full bg-white/20 p-2 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-green-400 rounded-lg resize-none"></textarea>
+
+@let details = shippingForm.get('details');
+@if (details?.errors && details?.touched) {
+  @if (details?.getError('required')) {
+    <div class="text-sm text-pink-400">Address details are required</div>
+  }
+}
+
+    <div class="flex items-center justify-center">
+      <button type="submit" [disabled]="shippingForm.invalid"
+        class="btn btn-success text-white w-[12rem] mt-5 transition-all duration-300 hover:scale-105 shadow-lg">
+        Submit
+      </button>
+    </div>
+
+  </form>
+</section>
