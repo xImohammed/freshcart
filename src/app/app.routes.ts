@@ -59,8 +59,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./feature/pages/product-details/product-details.component').then(
             (c) => c.ProductDetailsComponent
-          ),
-        data: { renderMode: 'client' } 
+          )
       }
       ,
       {
