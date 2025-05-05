@@ -5,10 +5,11 @@ import { TokenService } from '../../../core/services/token/token.service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { AllOrders } from '../../../core/models/all-orders';
 import { Subscription } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-allorders',
-  imports: [CurrencyPipe, CommonModule],
+  imports: [CurrencyPipe, CommonModule,RouterLink],
   templateUrl: './allorders.component.html',
   styleUrl: './allorders.component.scss'
 })
@@ -23,13 +24,12 @@ export class AllordersComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.tokenService.getUserData()
-    this.userId = this.tokenService.userId;
-
     this.subscriptions.add(
-      this.allOrdersService.getUserOrders(this.userId).subscribe({
+      this.allOrdersService.getUserOrders(this.tokenService.userId).subscribe({
         next: (res) => {
           this.orders = Array.isArray(res) ? res : [res];
           this.isLoading = false;
+          this.allOrdersService.numberOfAllOrders.set(this.orders.length)
         },
         error: (err) => {
           console.log(err);

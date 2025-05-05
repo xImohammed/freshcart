@@ -36,6 +36,7 @@ productData: IproductDetails = {} as IproductDetails;
             };
             this.currentMainImage = this.productData.imageCover;
             this.loading = false;
+
           },
           error: (err) => {
             console.error(err);
@@ -56,6 +57,7 @@ this._cartService.addToCart(pId).subscribe(
   {
     next:(res)=>{
       this._toastrService.success(res.message)
+      this._cartService.numberOfCartItems.set(res.numOfCartItems)
     }
   }
 )

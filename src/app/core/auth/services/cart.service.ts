@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { base_Url } from '../../custom_injection/api_BaseUrl';
 import { Observable, shareReplay } from 'rxjs';
 
@@ -8,6 +8,7 @@ import { Observable, shareReplay } from 'rxjs';
   providedIn: 'root'
 })
 export class CartService {
+  public numberOfCartItems:WritableSignal<number | null> = signal(0)
   private cart$!:Observable<any>
   constructor(private readonly _http:HttpClient,@Inject(base_Url) private apiBaseUrl:string) { }
 
@@ -20,9 +21,7 @@ export class CartService {
   {
     if(!this.cart$)
     {
-      this.cart$ = this._http.get(this.apiBaseUrl + `cart`).pipe(
-        shareReplay(1)
-      )
+      this.cart$ = this._http.get(this.apiBaseUrl + `cart`)
     }
 return this.cart$
   }

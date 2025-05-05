@@ -13,9 +13,7 @@ export class AllproductsService {
   {
     if(!this.products$)
     {
-      this.products$ =  this._http.get(this.apiBaseUrl + `products`).pipe(
-        shareReplay(1)
-      )
+      this.products$ =  this._http.get(this.apiBaseUrl + `products`)
     }
     return this.products$
   }

@@ -1,3 +1,4 @@
+import { UserstateService } from './../../../services/userstate.service';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SignInService } from '../../services/sign-in.service';
@@ -13,6 +14,7 @@ export class LoginComponent {
   private readonly loginService = inject(SignInService)
   private readonly routerService = inject(Router)
   private readonly tokenService = inject(TokenService)
+  private readonly _userStateService = inject(UserstateService)
   isloading:boolean  = false
   successMessage!:string
   errorMessage!:string
@@ -29,10 +31,12 @@ loginSubmit()
       next:(res)=> {
         this.isloading = false
         this.successMessage = res.message
+
         if(res.message === 'success')
         {
           localStorage.setItem('userToken',res.token)
           this.tokenService.getUserData()
+          this._userStateService.triggerUserChange()
           setTimeout(() => {
             this.routerService.navigate(['/home'])
           }, 2000);
@@ -47,6 +51,6 @@ loginSubmit()
   else{
     this.loginForm.markAllAsTouched()
   }
- 
+
 }
 }

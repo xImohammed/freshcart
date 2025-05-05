@@ -62,9 +62,10 @@ export class CartComponent implements OnInit, OnDestroy {
     this.isUpdating = true;
     this.subscriptions.add(
       this.cartService.deleteSpecificCartItem(pid).subscribe({
-        next: (res: CartResponse) => {
+        next: (res) => {
           this.cartData = res.data.products;
           this.totalCartPrice = res.data.totalCartPrice;
+          this.cartService.numberOfCartItems.set(res.numOfCartItems)
         },
         error: (err) => {
           console.error('Failed to delete cart item:', err);
@@ -106,6 +107,7 @@ export class CartComponent implements OnInit, OnDestroy {
           if (res.message === 'success') {
             this.cartData = [];
             this.totalCartPrice = 0;
+            this.cartService.numberOfCartItems.set(0)
           }
         },
         error: (err) => {

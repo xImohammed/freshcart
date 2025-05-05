@@ -43,18 +43,6 @@ export const routes: Routes = [
         loadComponent: () => import('./feature/pages/cart/cart.component').then(m => m.CartComponent)
       },
       {
-        path: 'brands',
-        loadComponent: () => import('./feature/pages/brands/brands.component').then(m => m.BrandsComponent)
-      },
-      {
-        path: 'categories',
-        loadComponent: () => import('./feature/pages/category/category.component').then(m => m.CategoryComponent)
-      },
-      {
-        path: 'products',
-        loadComponent: () => import('./feature/pages/products/products.component').then(m => m.ProductsComponent)
-      },
-      {
         path: 'product-details/:id',
         loadComponent: () =>
           import('./feature/pages/product-details/product-details.component').then(
@@ -69,6 +57,10 @@ export const routes: Routes = [
       {
         path: 'allorders',
         loadComponent: () => import('./feature/pages/allorders/allorders.component').then((c) => c.AllordersComponent)
+      },
+      {
+        path: 'wishlist',
+        loadComponent: () => import('./feature/pages/wishlist/wishlist.component').then((c) => c.WishlistComponent)
       }
     ]
   },

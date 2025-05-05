@@ -13,9 +13,7 @@ export class AllCategoriesService {
   {
     if(!this.categories$)
     {
-this.categories$ =this._http.get(this.abiBaseUrl +'categories').pipe(
-  shareReplay(1)
-)
+this.categories$ =this._http.get(this.abiBaseUrl +'categories')
     }
     return this.categories$
   }

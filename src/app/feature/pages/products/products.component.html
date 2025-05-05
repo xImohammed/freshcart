@@ -1,7 +1,0 @@
-<section class="w-[90%] mx-auto">
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      @for (item of productsData.slice().reverse().slice(0, 12) ; track item._id) {
-          <app-product-card [product]="item"></app-product-card>
-      }
-  </div>
-</section>
